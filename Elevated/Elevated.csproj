@@ -49,6 +49,10 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Math\GeoCoordinate.cs" />
+    <Compile Include="Math\DistanceUnit.cs" />
+    <Compile Include="Math\MathHelper.cs" />
+    <Compile Include="Math\GeoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Password.cs" />
   </ItemGroup>
