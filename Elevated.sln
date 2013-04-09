@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated", "Elevated\Elevated.csproj", "{923F1B4E-F0B9-4BE5-8804-4D79426B5DDA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated", "projects\Elevated\Elevated.csproj", "{923F1B4E-F0B9-4BE5-8804-4D79426B5DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
