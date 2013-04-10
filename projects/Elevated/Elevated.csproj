@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\IEntity.cs" />
     <Compile Include="Data\SqlClient.cs" />
     <Compile Include="Diagnotics\Statsd.cs" />
     <Compile Include="Extensions\BitFlagExtensions.cs" />

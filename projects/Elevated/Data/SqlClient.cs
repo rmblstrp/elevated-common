@@ -50,5 +50,35 @@
 				}
 			}
 		}
+
+		public static T GetObject<T>(Enum name, string sql, params SqlParameter[] parameters) where T : IEntity, new()
+		{
+			return GetObject<T>(ConnectionString(name), sql, parameters);
+		}
+
+		public static T GetObject<T>(string connectionString, string sql, params SqlParameter[] parameters) where T : IEntity, new()
+		{
+			using (var connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+
+				using (var command = new SqlCommand(sql, connection))
+				{
+					using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection | CommandBehavior.SingleResult | CommandBehavior.SingleRow))
+					{
+						if (reader.Read())
+						{
+							var obj = new T();
+							
+							obj.PopulateFromReader(reader);
+
+							return obj;
+						}
+					}
+				}
+			}
+
+			return default(T);
+		}
 	}
 }
