@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\SqlClient.cs" />
+    <Compile Include="Diagnotics\Statsd.cs" />
     <Compile Include="Extensions\BitFlagExtensions.cs" />
     <Compile Include="Extensions\DbDataReaderExtensions.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
