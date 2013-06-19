@@ -124,12 +124,12 @@
 			return Send(sampleRate, keys.Select(key => String.Format("{0}:{1}|c", key, magnitude)).ToArray());
 		}
 
-		protected static bool Send(String stat, double sampleRate)
+		private static bool Send(String stat, double sampleRate)
 		{
 			return Send(sampleRate, stat);
 		}
 
-		protected static bool Send(double sampleRate, params string[] stats)
+		private static bool Send(double sampleRate, params string[] stats)
 		{
 			var retval = false; // didn't send anything
 			if (sampleRate < 1.0)
@@ -160,7 +160,7 @@
 			return retval;
 		}
 
-		protected static bool DoSend(string stat)
+		private static bool DoSend(string stat)
 		{
 			var data = Encoding.Default.GetBytes(stat + "\n");
 
