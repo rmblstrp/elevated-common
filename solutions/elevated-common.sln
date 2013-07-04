@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated", "projects\Elevated\Elevated.csproj", "{923F1B4E-F0B9-4BE5-8804-4D79426B5DDA}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated", "..\projects\Elevated\Elevated.csproj", "{923F1B4E-F0B9-4BE5-8804-4D79426B5DDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated.GpsTracking", "projects\Elevated.GpsTracking\Elevated.GpsTracking.csproj", "{A09BC043-6760-4B79-8F90-D4CC660EEB9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated.GpsTracking", "..\projects\Elevated.GpsTracking\Elevated.GpsTracking.csproj", "{A09BC043-6760-4B79-8F90-D4CC660EEB9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
