@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated", "..\projects\Ele
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated.GpsTracking", "..\projects\Elevated.GpsTracking\Elevated.GpsTracking.csproj", "{A09BC043-6760-4B79-8F90-D4CC660EEB9B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elevated.NHibernate", "..\projects\Elevated.NHibernate\Elevated.NHibernate.csproj", "{2825EC22-B17C-471E-90EA-AB5C32081883}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{A09BC043-6760-4B79-8F90-D4CC660EEB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A09BC043-6760-4B79-8F90-D4CC660EEB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A09BC043-6760-4B79-8F90-D4CC660EEB9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2825EC22-B17C-471E-90EA-AB5C32081883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2825EC22-B17C-471E-90EA-AB5C32081883}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2825EC22-B17C-471E-90EA-AB5C32081883}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2825EC22-B17C-471E-90EA-AB5C32081883}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
