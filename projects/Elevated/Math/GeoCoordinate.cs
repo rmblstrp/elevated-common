@@ -2,10 +2,12 @@
 {
 	using Math = System.Math;
 
-	public struct GeoCoordinate
+	public class GeoCoordinate
 	{
 		public double Latitude;
 		public double Longitude;
+
+		public GeoCoordinate() { }
 
 		public GeoCoordinate(double latitude, double longitude)
 		{

@@ -80,5 +80,25 @@
 
 			return default(T);
 		}
+		public static T ExecuteReader<T>(Enum name, string sql, Func<SqlDataReader, T> execute, params SqlParameter[] parameters)
+		{
+			return ExecuteReader<T>(ConnectionString(name), sql, execute, parameters);
+		}
+
+		public static T ExecuteReader<T>(string connectionString, string sql, Func<SqlDataReader, T> execute, params SqlParameter[] parameters)
+		{
+			using (var connection = new SqlConnection(connectionString))
+			{
+				connection.Open();
+
+				using (var command = new SqlCommand(sql, connection))
+				{
+					using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
+					{
+						return execute(reader);
+					}
+				}
+			}
+		}
 	}
 }
