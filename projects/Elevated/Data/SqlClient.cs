@@ -21,10 +21,15 @@
 		{
 			using (var connection = new SqlConnection(connectionString))
 			{
-				connection.Open();
+				connection.Open();				
 
 				using (var command = new SqlCommand(sql, connection))
 				{
+					for (int index = 0; index < parameters.Length; index++)
+					{
+						command.Parameters.Add(parameters[index]);
+					}
+
 					return command.ExecuteNonQuery();
 				}
 			}
@@ -43,6 +48,11 @@
 
 				using (var command = new SqlCommand(sql, connection))
 				{
+					for (int index = 0; index < parameters.Length; index++)
+					{
+						command.Parameters.Add(parameters[index]);
+					}
+
 					using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
 					{
 						execute(reader);
