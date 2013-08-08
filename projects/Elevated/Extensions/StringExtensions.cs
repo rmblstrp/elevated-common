@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 
 // Basic string extensions
 public static partial class StringExtensions
