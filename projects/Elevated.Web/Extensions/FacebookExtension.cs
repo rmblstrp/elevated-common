@@ -43,7 +43,7 @@ public static class FacebookExtension
 		return AccessToken;
 	}
 
-	public static object GetSignedRequest(this FacebookClient client)
+	public static dynamic GetSignedRequest(this FacebookClient client)
 	{
 		var context = HttpContext.Current;
 		var signed = context.Request.Form["signed_request"];
@@ -68,7 +68,7 @@ public static class FacebookExtension
 
 	private static long GetUserFromAvailableData(FacebookClient client)
 	{
-		dynamic signed = client.GetSignedRequest();
+		var signed = client.GetSignedRequest();
 		long userId;
 
 		if (signed != null)
@@ -79,7 +79,7 @@ public static class FacebookExtension
 
 				if (userId != GetPersistentData<long>(client, SupportedKeys.UserId))
 				{
-					ClearAllPersistentData(client);
+					ClearAllPersistentData();
 				}
 
 				SetPersistentData(client, SupportedKeys.UserId, userId);
@@ -105,7 +105,7 @@ public static class FacebookExtension
 			}
 			else
 			{
-				ClearAllPersistentData(client);
+				ClearAllPersistentData();
 			}
 		}
 
@@ -127,6 +127,96 @@ public static class FacebookExtension
 
 	private static string GetUserAccessToken(FacebookClient client)
 	{
+		var signed = GetSignedRequest(client);
+		
+		string token, code;
+
+		if (signed != null)
+		{
+			if (signed.oauth_token != null)
+			{
+				token = signed.oauth_token;
+
+				SetPersistentData(client, SupportedKeys.AccessToken, token);
+
+				return token;
+			}
+
+			if (signed.code != null)
+			{
+				code = signed.code;
+
+				if (code != null && code == GetPersistentData<string>(client, SupportedKeys.Code))
+				{
+					return GetPersistentData<string>(client, SupportedKeys.AccessToken);
+				}
+
+				token = GetAccessTokenFromCode(client, code, string.Empty);
+
+				if (token.IsNotNullOrEmpty())
+				{
+					SetPersistentData(client, SupportedKeys.Code, code);
+					SetPersistentData(client, SupportedKeys.AccessToken, token);
+
+					return token;
+				}
+			}
+
+			ClearAllPersistentData();
+
+			return null;
+		}
+
+		code = GetCode(client);
+
+		if (code != null && code != GetPersistentData<string>(client, SupportedKeys.Code))
+		{
+			token = GetAccessTokenFromCode(client, code);
+
+			if (token.IsNotNullOrEmpty())
+			{
+				SetPersistentData(client, SupportedKeys.Code, code);
+				SetPersistentData(client, SupportedKeys.AccessToken, token);
+
+				return token;
+			}
+
+			ClearAllPersistentData();
+
+			return null;
+		}
+
+		return GetPersistentData<string>(client, SupportedKeys.AccessToken);
+	}
+
+	private static string GetCode(FacebookClient client)
+	{
+		return null;
+	}
+
+	private static string GetAccessTokenFromCode(FacebookClient client, string code, string redirectUri = null)
+	{
+		if (code.IsNullOrEmpty())
+		{
+			return null;
+		}
+
+		if (redirectUri == null)
+		{
+			redirectUri = HttpContext.Current.Request.RawUrl;
+		}
+
+		try
+		{
+			dynamic response = client.Get("/oauth/access_token", new { redirect_uri = redirectUri, code = code });
+
+			if (response != null && response.access_token != null)
+			{
+				return response.access_token;
+			}
+		}
+		catch {  }
+
 		return null;
 	}
 
@@ -175,7 +265,7 @@ public static class FacebookExtension
 		}
 	}
 
-	private static void ClearAllPersistentData(FacebookClient client)
+	private static void ClearAllPersistentData()
 	{
 		string[] supportedKeys = { "State", "Code", "AccessToken", "UserId" };
 
