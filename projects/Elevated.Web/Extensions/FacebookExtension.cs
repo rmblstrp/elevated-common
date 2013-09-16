@@ -19,7 +19,7 @@ public static class FacebookExtension
 		set { HttpContext.Current.Items["FacebookExtension.AccessToken"] = value; }
 	}
 
-	public static string PostMessageToWall(this FacebookClient client, uint facebookUserId, string message)
+	public static string PostMessageToWall(this FacebookClient client, ulong facebookUserId, string message)
 	{
 		dynamic post = client.Post
 		(
@@ -30,7 +30,7 @@ public static class FacebookExtension
 		return post.id;
 	}
 
-	public static string PostMessageToPage(this FacebookClient client, uint facebookUserId, uint facebookPageId, string message)
+	public static string PostMessageToPage(this FacebookClient client, ulong facebookUserId, ulong facebookPageId, string message)
 	{
 		var token = client.AccessToken;		
 
@@ -46,7 +46,7 @@ public static class FacebookExtension
 		}		
 	}
 
-	public static string GetPageAccessToken(this FacebookClient client, uint facebookUserId, uint facebookPageId)
+	public static string GetPageAccessToken(this FacebookClient client, ulong facebookUserId, ulong facebookPageId)
 	{
 		var accounts = client.ListAccounts(facebookUserId);
 
@@ -61,7 +61,7 @@ public static class FacebookExtension
 		throw new ArgumentException(string.Format("Facebook page id ({0}) was not found", facebookPageId));
 	}
 
-	public static dynamic ListAccounts(this FacebookClient client, uint facebookUserId)
+	public static dynamic ListAccounts(this FacebookClient client, ulong facebookUserId)
 	{
 		return client.Get(string.Format("/{0}/accounts", facebookUserId));
 	}
