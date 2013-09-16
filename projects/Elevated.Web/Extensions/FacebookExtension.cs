@@ -19,6 +19,12 @@ public static class FacebookExtension
 		set { HttpContext.Current.Items["FacebookExtension.AccessToken"] = value; }
 	}
 
+	public static string ExchangeToken(this FacebookClient client, string token)
+	{
+		dynamic post = client.Post("/oauth/access_token", new { grant_type = "fb_exchange_token", client_id = client.AppId, client.AppSecret, fb_exchange_token = token });
+		return post.access_token;
+	}
+
 	public static string PostMessageToWall(this FacebookClient client, ulong facebookUserId, string message)
 	{
 		dynamic post = client.Post
