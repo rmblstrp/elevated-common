@@ -21,7 +21,7 @@ public static class FacebookExtension
 
 	public static string ExchangeToken(this FacebookClient client, string token)
 	{
-		dynamic post = client.Post("/oauth/access_token", new { grant_type = "fb_exchange_token", client_id = client.AppId, client.AppSecret, fb_exchange_token = token });
+		dynamic post = client.Post("/oauth/access_token", new { grant_type = "fb_exchange_token", client_id = client.AppId, client_secret = client.AppSecret, fb_exchange_token = token });
 		return post.access_token;
 	}
 
