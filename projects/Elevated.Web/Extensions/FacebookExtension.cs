@@ -25,7 +25,7 @@ public static class FacebookExtension
 		return post.access_token;
 	}
 
-	public static ulong? PostMessageToWall(this FacebookClient client, ulong facebookUserId, string message)
+	public static string PostMessageToWall(this FacebookClient client, ulong facebookUserId, string message)
 	{
 		dynamic post = client.Post
 		(
@@ -33,23 +33,11 @@ public static class FacebookExtension
 			new { message = message }
 		);
 
-		if (post.id != null)
-		{
-			var parts = ((string)post.id).Split('_');
 
-			switch (parts.Length)
-			{
-				case 1:
-					return Convert.ToUInt64(parts[0]);
-				case 2:
-					return Convert.ToUInt64(parts[1]);
-			}
-		}
-
-		return null;
+		return post.id;
 	}
 
-	public static ulong? PostMessageToPage(this FacebookClient client, ulong facebookUserId, ulong facebookPageId, string message)
+	public static string PostMessageToPage(this FacebookClient client, ulong facebookUserId, ulong facebookPageId, string message)
 	{
 		var token = client.AccessToken;		
 
