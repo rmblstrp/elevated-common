@@ -6,6 +6,16 @@
 	{
 		public static readonly string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+		public static string Encode(Guid guid)
+		{
+			var bytes = guid.ToByteArray();
+
+			var first = Encode(BitConverter.ToUInt64(bytes, 0));
+			var second = Encode(BitConverter.ToUInt64(bytes, 8));
+
+			return first + second;
+		}
+
 		public static string Encode(ulong number)
 		{
 			var result = string.Empty;
