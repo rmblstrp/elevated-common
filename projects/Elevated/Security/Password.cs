@@ -31,7 +31,7 @@
 			}
 		}
 
-		public static byte[] GenerateHash(HashingStrategy strategy, byte[] salt, string password)
+		public static byte[] GenerateHash(HashingStrategy strategy, string password, byte[] salt)
 		{
 			var bytes = Encoding.UTF8.GetBytes(password).Concat(salt);
 
