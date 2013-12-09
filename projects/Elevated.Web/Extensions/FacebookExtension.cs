@@ -108,12 +108,14 @@ public static class FacebookExtension
 
 			if (signed.IsNullOrEmpty())
 			{
-				signed = context.Request.Cookies[client.SignedRequestCookieName()].Value;
+				var cookie = context.Request.Cookies[client.SignedRequestCookieName()];
 
-				if (signed.IsNullOrEmpty())
+				if (cookie == null || cookie.Value.IsNullOrEmpty())
 				{
 					return null;
 				}
+
+				signed = cookie.Value;
 			}
 		}
 
@@ -129,7 +131,7 @@ public static class FacebookExtension
 		{
 			if (signed.user_id != null)
 			{
-				userId = signed.user_id;
+				userId = Convert.ToInt64(signed.user_id);
 
 				if (userId != GetPersistentData<long>(client, SupportedKeys.UserId))
 				{
@@ -149,7 +151,7 @@ public static class FacebookExtension
 
 		if (accessToken.IsNotNullOrEmpty()
 			&& accessToken != GetApplicationAccessToken(client)
-			&& !(userId != long.MinValue && persistedAccessToken == accessToken))
+			&& !((userId != 0) && persistedAccessToken == accessToken))
 		{
 			userId = GetUserFromAccessToken(client);
 
