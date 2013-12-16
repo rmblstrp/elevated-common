@@ -103,6 +103,8 @@
 
 				using (var command = new SqlCommand(sql, connection))
 				{
+					command.Parameters.AddRange(parameters);
+
 					using (var reader = command.ExecuteReader(CommandBehavior.CloseConnection))
 					{
 						return execute(reader);
