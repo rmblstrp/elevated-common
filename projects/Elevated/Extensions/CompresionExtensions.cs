@@ -19,10 +19,7 @@ public static class CompresionExtensions
 		{
 			using (DeflateStream gzip = new DeflateStream(output, CompressionMode.Compress))
 			{
-				using (StreamWriter writer = new StreamWriter(gzip, System.Text.Encoding.UTF8))
-				{
-					gzip.Write(data, 0, data.Length);
-				}
+				gzip.Write(data, 0, data.Length);
 			}
 
 			return output.ToArray();
