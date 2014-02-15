@@ -18,4 +18,9 @@ public static partial class StringExtensions
 	{
 		return string.IsNullOrEmpty(str);
 	}
+
+	public static string GetString(this byte[] str)
+	{
+		return System.Text.Encoding.UTF8.GetString(str);
+	}
 }
