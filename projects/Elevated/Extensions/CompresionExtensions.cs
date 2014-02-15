@@ -42,7 +42,7 @@ public static class CompresionExtensions
 			{
 				using (MemoryStream output = new MemoryStream())
 				{
-					var buffer = new byte[4096]; int count;
+					var buffer = new byte[ushort.MaxValue]; int count;
 
 					while ((count = gzip.Read(buffer, 0, buffer.Length)) > 0)
 					{
