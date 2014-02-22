@@ -9,25 +9,25 @@ public static class BitFlagExtensions
 {
 	private const string AssertionMessage = "Flag operations are only allowed on the following types: enum, byte, ushort, uint";
 
-	public static bool ContainsFlag<T>(this T bits, T flag) where T : struct, IConvertible
+	public static bool ContainsFlag<T>(this T bits, T flag) where T : struct
 	{
 		AssertIsTypeValid<T>();
 		return (bits.ToMask() & flag.ToMask()) == flag.ToMask();
 	}
 
-	public static T DisableFlag<T>(this T bits, T flag) where T : struct, IConvertible
+	public static T DisableFlag<T>(this T bits, T flag) where T : struct
 	{
 		AssertIsTypeValid<T>();
 		return (bits.ToMask() & ~flag.ToMask()).ToType<T>();
 	}
 
-	public static T EnableFlag<T>(this T bits, T flag) where T : struct, IConvertible
+	public static T EnableFlag<T>(this T bits, T flag) where T : struct
 	{
 		AssertIsTypeValid<T>();
 		return (bits.ToMask() | flag.ToMask()).ToType<T>();
 	}
 
-	public static T ToggleFlag<T>(this T bits, T flag) where T : struct, IConvertible
+	public static T ToggleFlag<T>(this T bits, T flag) where T : struct
 	{
 		AssertIsTypeValid<T>();
 		return (bits.ToMask() ^ flag.ToMask()).ToType<T>();
@@ -50,7 +50,7 @@ public static class BitFlagExtensions
 		return (T)obj;
 	}
 
-	private static UInt32 ToMask<T>(this T bits) where T : struct, IConvertible
+	private static UInt32 ToMask<T>(this T bits) where T : struct
 	{
 		return Convert.ToUInt32(bits);
 	}

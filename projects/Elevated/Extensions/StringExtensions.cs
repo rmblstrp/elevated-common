@@ -21,6 +21,6 @@ public static partial class StringExtensions
 
 	public static string GetString(this byte[] str)
 	{
-		return System.Text.Encoding.UTF8.GetString(str);
+		return System.Text.Encoding.UTF8.GetString(str, 0, str.Length);
 	}
 }
