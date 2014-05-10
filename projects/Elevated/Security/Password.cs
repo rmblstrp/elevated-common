@@ -7,7 +7,7 @@
 
 	public static class Password
 	{
-		public enum HashingStrategy : byte
+		public enum HashingStrategy
 		{
 			SHA256 = 0,
 			SHA512 = 1,
