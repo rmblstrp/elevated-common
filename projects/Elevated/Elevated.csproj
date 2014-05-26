@@ -71,7 +71,8 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StreamExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Facebook\ElevatedFacebookClient.cs" />
+    <Compile Include="Facebook\FacebookClientExtended.cs" />
+    <Compile Include="Facebook\FacebookExtensions.cs" />
     <Compile Include="Facebook\FacebookPermissionCollection.cs" />
     <Compile Include="Facebook\FacebookPermissionStatus.cs" />
     <Compile Include="Math\GeoCoordinate.cs" />

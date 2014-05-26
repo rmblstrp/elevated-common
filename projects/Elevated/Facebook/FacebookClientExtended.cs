@@ -9,26 +9,23 @@ namespace Elevated.Facebook
 {
 	public class FacebookClientExtended : FacebookClient
 	{
-		private FacebookPermissionCollection permissions = new FacebookPermissionCollection();
-
-		public FacebookPermissionCollection Permissions
+		public static FacebookPermissionCollection ParsePermissions(object response)
 		{
-			get { return permissions; }
-		}
-
-		public void ParsePermissions(object response)
-		{
-			var list = permissions as IEnumerable<object> ?? ((dynamic)permissions).data as IEnumerable<object>;
+			var list = response as IEnumerable<object> ?? ((dynamic)response).data as IEnumerable<object>;
 
 			if (list == null)
 			{
 				throw new ArgumentException("Unable to obtain list of permissions", "permissions");
 			}
 
+			var permissions = new FacebookPermissionCollection();
+
 			foreach (dynamic item in list)
 			{
 				permissions.Add(item.permission, Enum.Parse(typeof(FacebookPermissionStatus), item.status));
 			}
+
+			return permissions;
 		}
 	}
 }
