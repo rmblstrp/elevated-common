@@ -11,18 +11,11 @@ namespace Elevated.Facebook
 	{
 		public static FacebookPermissionCollection ParsePermissions(object response)
 		{
-			var list = response as IEnumerable<object> ?? ((dynamic)response).data as IEnumerable<object>;
-
-			if (list == null)
-			{
-				throw new ArgumentException("Unable to obtain list of permissions", "permissions");
-			}
-
 			var permissions = new FacebookPermissionCollection();
 
-			foreach (dynamic item in list)
+			foreach (var item in (dynamic)response)
 			{
-				permissions.Add(item.permission, Enum.Parse(typeof(FacebookPermissionStatus), item.status));
+				permissions.Add(item.permission, Enum.Parse(typeof(FacebookPermissionStatus), item.status, true));
 			}
 
 			return permissions;

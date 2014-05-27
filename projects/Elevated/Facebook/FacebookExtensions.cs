@@ -8,7 +8,7 @@ public static class FacebookExtensions
 {
 	public static string CreateAlbum(this FacebookClient client, ulong facebookUserId, string name, string description)
 	{
-		var result = (dynamic)client.Post(string.Format("/{0}/albums"), new { name = name, message = description });
+		var result = (dynamic)client.Post(string.Format("/{0}/albums", facebookUserId), new { name = name, message = description.NullToString() });
 
 		return result.id;
 	}
@@ -23,7 +23,7 @@ public static class FacebookExtensions
 	{
 		foreach (dynamic account in accounts)
 		{
-			if (account.id == accountId)
+			if (account.id == accountId.ToString())
 			{
 				return account;
 			}
@@ -36,7 +36,7 @@ public static class FacebookExtensions
 	{
 		var list = (dynamic)client.Get(string.Format("/{0}/albums?fields=name,id", facebookUserId));
 
-		name = name.ToLower();
+		name = name.NullToString().ToLower();
 
 		foreach (var album in list.data)
 		{
@@ -78,7 +78,7 @@ public static class FacebookExtensions
 
 	public static object ListPermissions(this FacebookClient client, ulong facebookUserId)
 	{
-		var result = (dynamic)client.Get(string.Format("/{0}/permissions", facebookUserId));
+		var result = (dynamic)client.Get(string.Format("/v2.0/{0}/permissions", facebookUserId));
 
 		return result.data;
 	}
