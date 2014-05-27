@@ -19,6 +19,19 @@ public static class FacebookExtensions
 		return post.access_token;
 	}
 
+	public static object GetAccount(this FacebookClient client, dynamic accounts, ulong accountId)
+	{
+		foreach (dynamic account in accounts)
+		{
+			if (account.id == accountId)
+			{
+				return account;
+			}
+		}
+
+		return null;
+	}
+
 	public static string GetAlbumId(this FacebookClient client, ulong facebookUserId, string name)
 	{
 		var list = (dynamic)client.Get(string.Format("/{0}/albums?fields=name,id", facebookUserId));
@@ -34,21 +47,6 @@ public static class FacebookExtensions
 		}
 
 		return null;
-	}
-
-	public static string GetPageAccessToken(this FacebookClient client, ulong facebookUserId, ulong facebookPageId)
-	{
-		var accounts = (dynamic)client.ListAccounts(facebookUserId);
-
-		foreach (dynamic page in accounts)
-		{
-			if (page.id == facebookPageId)
-			{
-				return page.access_token;
-			}
-		}
-
-		throw new ArgumentException(string.Format("Facebook page id ({0}) was not found", facebookPageId));
 	}
 
 	public static long GetUserFromAccessToken(this FacebookClient client)
@@ -85,42 +83,31 @@ public static class FacebookExtensions
 		return result.data;
 	}
 
-	public static string PostMessageToWall(this FacebookClient client, ulong facebookUserId, string message)
+	public static string PostMessage(this FacebookClient client, ulong facebookId, string message)
+	{
+		return client.PostMessage(facebookId.ToString(), message);
+	}
+
+	public static string PostMessage(this FacebookClient client, string facebookId, string message)
 	{
 		dynamic post = client.Post
 		(
-			string.Format("/{0}/feed", facebookUserId),
+			string.Format("/{0}/feed", facebookId),
 			new { message = message }
 		);
 
 		return post.id;
 	}
 
-	public static string PostMessageToPage(this FacebookClient client, ulong facebookUserId, ulong facebookPageId, string message)
-	{
-		var token = client.AccessToken;
-
-		try
-		{
-			client.AccessToken = client.GetPageAccessToken(facebookUserId, facebookPageId);
-
-			return client.PostMessageToWall(facebookUserId, message);
-		}
-		finally
-		{
-			client.AccessToken = token;
-		}
-	}
-
-	public static string PostPhotoToAlbum(this FacebookClient client, string albumId, string message, string filename, byte[] photo)
+	public static string PostPhoto(this FacebookClient client, string albumId, string message, string filename, byte[] photo)
 	{
 		using (var stream = new MemoryStream(photo))
 		{
-			return client.PostPhotoToAlbum(albumId, message, filename, stream);
+			return client.PostPhoto(albumId, message, filename, stream);
 		}
 	}
 
-	public static string PostPhotoToAlbum(this FacebookClient client, string albumId, string message, string filename, Stream photo)
+	public static string PostPhoto(this FacebookClient client, string albumId, string message, string filename, Stream photo)
 	{
 		var parameters = new
 		{
