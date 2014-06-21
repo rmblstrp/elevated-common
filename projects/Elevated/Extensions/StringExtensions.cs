@@ -12,12 +12,12 @@ public static partial class StringExtensions
 
 	public static bool IsNotNullOrEmpty(this string str)
 	{
-		return !string.IsNullOrEmpty(str);
+		return !string.IsNullOrWhiteSpace(str);
 	}
 
 	public static bool IsNullOrEmpty(this string str)
 	{
-		return string.IsNullOrEmpty(str);
+		return string.IsNullOrWhiteSpace(str);
 	}
 
 	public static string GetString(this byte[] str)
