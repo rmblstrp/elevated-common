@@ -6,6 +6,20 @@
 	{
 		public static readonly string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
+		public static ulong Decode(string value)
+		{
+			var str = ReverseString(value);						
+			int end = str.Length - 1;
+			ulong result = 0;
+
+			for (int index = 0; index <= end; index++)
+			{
+				result = result + (ulong)(Alphabet.IndexOf(str.Substring(index, 1)) * BcPow(Alphabet.Length, end - index));
+			}
+
+			return result;
+		}
+
 		public static string Encode(Guid guid)
 		{
 			var bytes = guid.ToByteArray();
