@@ -20,6 +20,11 @@
 			return result;
 		}
 
+		public static string Encode(byte[] value, int startIndex = 0)
+		{
+			return Encode(BitConverter.ToUInt64(value, startIndex));
+		}
+
 		public static string Encode(Guid guid)
 		{
 			var bytes = guid.ToByteArray();
