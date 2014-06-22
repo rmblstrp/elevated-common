@@ -29,8 +29,8 @@
 		{
 			var bytes = guid.ToByteArray();
 
-			var first = Encode(BitConverter.ToUInt64(bytes, 0));
-			var second = Encode(BitConverter.ToUInt64(bytes, 8));
+			var first = Encode(bytes, 0);
+			var second = Encode(bytes, 8);
 
 			return first + second;
 		}
