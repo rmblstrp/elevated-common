@@ -8,13 +8,13 @@
 
 		public static ulong Decode(string value)
 		{
-			var str = ReverseString(value);						
-			int end = str.Length - 1;
+			var len = value.Length - 1;
 			ulong result = 0;
 
-			for (int index = 0; index <= end; index++)
+			for (int t = len; t >= 0; t--)
 			{
-				result = result + (ulong)(Alphabet.IndexOf(str.Substring(index, 1)) * BcPow(Alphabet.Length, end - index));
+				var bcp = (ulong)BcPow(Alphabet.Length, len - t);
+				result += (ulong)Alphabet.IndexOf(value.Substring(t, 1)) * bcp;
 			}
 
 			return result;
@@ -35,30 +35,24 @@
 			return first + second;
 		}
 
-		public static string Encode(ulong number)
+		public static string Encode(ulong value)
 		{
 			var result = string.Empty;
 
-			for (int count = (int)Math.Floor(Math.Log(number) / Math.Log(Alphabet.Length)); count >= 0; count--)
+			for (var t = (value != 0 ? Math.Floor(Math.Log(value, Alphabet.Length)) : 0); t >= 0; t--)
 			{
-				result += Alphabet[(int)(Math.Floor(number / BcPow(Alphabet.Length, count)) % Alphabet.Length)];
+			  var bcp = (ulong)BcPow(Alphabet.Length, t);
+			  var a = ((ulong)Math.Floor((decimal)value / (decimal)bcp)) % (ulong)Alphabet.Length;
+			  result += Alphabet.Substring((int)a, 1);
+			  value  = value - (a * bcp);
 			}
 
-			return ReverseString(result);
+			return result;
 		}
 
-		private static double BcPow(double a, double b)
+		private static decimal BcPow(double a, double b)
 		{
-			return Math.Floor(Math.Pow(a, b));
-		}
-
-		private static string ReverseString(string s)
-		{
-			var arr = s.ToCharArray();
-
-			Array.Reverse(arr);
-
-			return new string(arr);
+			return Math.Floor((decimal)Math.Pow(a, b));
 		}
 	}
 }
