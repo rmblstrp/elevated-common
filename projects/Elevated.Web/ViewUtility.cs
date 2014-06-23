@@ -64,7 +64,7 @@
 					viewResult = ViewEngines.Engines.FindView(controller.ControllerContext, view, null);
 				}
 
-				if (viewResult == null)
+				if (viewResult.View == null)
 				{
 					throw new FileNotFoundException("View cannot be found");
 				}
