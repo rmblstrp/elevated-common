@@ -8,7 +8,7 @@
 
 		private static decimal BcPow(double a, double b)
 		{
-			return Math.Floor((decimal)Math.Pow(a, b));
+			return (decimal)Math.Floor(Math.Pow(a, b));
 		}
 
 		public static ulong Decode(string value, int pad = 0)
@@ -58,7 +58,7 @@
 			for (var t = (value != 0 ? Math.Floor(Math.Log(value, Alphabet.Length)) : 0); t >= 0; t--)
 			{
 			  var bcp = (ulong)BcPow(Alphabet.Length, t);
-			  var a = ((ulong)Math.Floor((decimal)value / (decimal)bcp)) % (ulong)Alphabet.Length;
+			  var a = ((ulong)Math.Floor(Convert.ToDouble((decimal)value / (decimal)bcp))) % (ulong)Alphabet.Length;
 			  result += Alphabet[(int)a];
 			  value  = value - (a * bcp);
 			}
