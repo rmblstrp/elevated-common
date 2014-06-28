@@ -10,7 +10,19 @@ public static class HttpContextExtensions
 		return (T)context.Items[key];
 	}
 
-	public static T GetItem<T>(this HttpContext context, string key, bool returnDefault)
+	public static T GetItem<T>(this HttpContext context, string key, T defaultValue)
+	{
+		var item = context.Items[key];
+
+		if (item == null)
+		{
+			return defaultValue;
+		}
+
+		return (T)item;
+	}
+
+	public static T GetItem<T>(this HttpContext context, string key, bool returnDefault = true)
 	{
 		T item = (T)context.Items[key];
 
