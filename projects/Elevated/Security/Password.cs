@@ -33,7 +33,7 @@
 			}
 		}
 
-		public static byte[] GenerateHash(HashingStrategy strategy, string password, byte[] salt)
+		public static byte[] GenerateHash(HashingStrategy strategy, string password, byte[] salt, int iterations = 1000)
 		{
 			var bytes = Encoding.UTF8.GetBytes(password).Concat(salt);
 
@@ -51,7 +51,7 @@
 						return sha512.ComputeHash(bytes.ToArray());
 					}
 				case HashingStrategy.PBKDF2:
-					using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt) { IterationCount = 1000 })
+					using (var pbkdf2 = new Rfc2898DeriveBytes(password, salt) { IterationCount = iterations })
 					{
 						return pbkdf2.GetBytes(salt.Length);
 					}
